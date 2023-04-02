@@ -1,0 +1,18 @@
+[features]
+seeds = false
+skip-lint = false
+[programs.localnet]
+onchain_voting = "6DYcXx4xWNjTQQaixpmRsTxTqEVoBNHimDBg4P3hDVua"
+
+[program]
+name = "onchain_voting"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "http://localhost:8899"
+wallet = "/home/cashmunsy/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
