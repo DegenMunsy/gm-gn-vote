@@ -1,7 +1,7 @@
 // Import the required prelude from the anchor_lang crate
 use anchor_lang::prelude::*;
 // Declare a unique identifier for this program
-declare_id!("6DYcXx4xWNjTQQaixpmRsTxTqEVoBNHimDBg4P3hDVua");
+declare_id!("");
 
 // Define the main module for the on-chain voting program
 #[program]
