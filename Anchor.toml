@@ -2,7 +2,7 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-onchain_voting = "6DYcXx4xWNjTQQaixpmRsTxTqEVoBNHimDBg4P3hDVua"
+onchain_voting = ""
 
 [program]
 name = "onchain_voting"
