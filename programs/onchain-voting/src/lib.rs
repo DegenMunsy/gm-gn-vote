@@ -71,7 +71,7 @@ pub struct InitVote<'info> {
 #[account]
 pub struct VoteBank {
     // Seed
-    pub seed: u64
+    pub seed: u64,
     // Bump
     pub bump: u8,
     // Counter for GM votes
