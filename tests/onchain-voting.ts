@@ -8,7 +8,25 @@ describe("onchain-voting", () => {
   let voteBank = anchor.web3.Keypair.generate();
 
   it("Creating vote bank for public to vote", async () => {
-    //... (no changes here)
+    const seed = new Date().getTime(); 
+    const prompt = "Vote for your favorite option!";
+
+    await program.rpc.initVoteBank(prompt, seed, {
+      accounts: {
+        voteAccount: voteBank.publicKey,
+        signer: program.provider.wallet.publicKey,
+        system_program: anchor.web3.SystemProgram.programId,
+      },
+      instructions: [
+        await program.account.voteBank.createInstruction(voteBank),
+      ],
+      signers: [voteBank],
+    });
+
+    let voteBankAccount = await program.account.voteBank.fetch(voteBank.publicKey);
+    let voteBankData = voteBankAccount as unknown as VoteBank;
+    console.log('Initialized voteBankData', voteBankData);
+    console.log(`Prompt: ${voteBankData.prompt}`);
   });
 
   it("Vote for GM", async () => {
@@ -22,7 +40,7 @@ describe("onchain-voting", () => {
 
     let voteBankAccount = await program.account.voteBank.fetch(voteBank.publicKey);
     let voteBankData = voteBankAccount as unknown as VoteBank;
-    console.log('voteBankData', voteBankData);
+    console.log('voteBankData after GM vote', voteBankData);
     console.log(`Total GMs :: ${voteBankData.gm}`);
     console.log(`Total GNs :: ${voteBankData.gn}`);
   });
@@ -38,9 +56,10 @@ describe("onchain-voting", () => {
 
     let voteBankAccount = await program.account.voteBank.fetch(voteBank.publicKey);
     let voteBankData = voteBankAccount as unknown as VoteBank;
-    console.log('voteBankData', voteBankData);
+    console.log('voteBankData after GN vote', voteBankData);
     console.log(`Total GMs :: ${voteBankData.gm}`);
     console.log(`Total GNs :: ${voteBankData.gn}`);
   });
 
 });
+
