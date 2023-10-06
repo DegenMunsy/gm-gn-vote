@@ -1,7 +1,7 @@
 // Import the required prelude from the anchor_lang crate
 use anchor_lang::prelude::*;
 // Declare a unique identifier for this program
-declare_id!("");
+declare_id!("11111111111111111111111111111111");
 
 // Define the main module for the on-chain voting program
 #[program]
@@ -14,7 +14,7 @@ pub mod onchain_voting {
         // Set the seed
         ctx.accounts.vote_account.seed = seed;
         // Set the bump
-        ctx.accounts.vote_account.bump = ctx.bumps.get("vote_account").unwrap();
+        ctx.accounts.vote_account.bump = *ctx.bumps.get("vote_account").unwrap();
         // Set the expiration of the vote to 100,000 slots from now
         ctx.accounts.vote_account.expiration = Clock::get()?.slot + 100_000;
         // Set the prompt being voted on
@@ -26,7 +26,7 @@ pub mod onchain_voting {
     // Function to handle a user's vote
     pub fn gib_vote(ctx: Context<GibVote>, vote_type: VoteType) -> Result<()> {
         // Make sure voting isn't expired yet
-        require!(ctx.accounts.vote_account.expiration > Clock::get()?.slot);
+        require_gt!(ctx.accounts.vote_account.expiration, Clock::get()?.slot);
         // Match the vote type (GM or GN) and increment the corresponding counter
         match vote_type {
             VoteType::GM => {
