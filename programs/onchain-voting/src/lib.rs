@@ -10,7 +10,7 @@ pub mod onchain_voting {
     use super::*;
 
     // Function to initialize the vote bank
-    pub fn init_vote_bank(ctx: Context<InitVote>, prompt: String, seed: u64) -> Result<()> {
+    pub fn init_vote_bank(ctx: Context<InitVote>, seed: u64, prompt: String) -> Result<()> {
         // Set the seed
         ctx.accounts.vote_account.seed = seed;
         // Set the bump
@@ -49,7 +49,7 @@ pub mod onchain_voting {
 
 // Define the accounts struct for initializing the vote bank
 #[derive(Accounts)]
-#[instruction(prompt: String, seed: u64)]
+#[instruction(seed: u64, prompt: String)]
 pub struct InitVote<'info> {
     // Define the vote account with the necessary attributes
     #[account(
